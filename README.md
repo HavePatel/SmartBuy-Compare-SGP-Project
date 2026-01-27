@@ -1,66 +1,100 @@
-# Smart Buy Compare
+# 🛒 Smart Buy Compare
 
-Smart Buy Compare is a student-focused price comparison and smart buying platform that helps users compare product prices across multiple online stores, plan purchases using upcoming deals, and choose options based on delivery speed or cost.
+Smart Buy Compare is a **student-focused price comparison and decision-support web application** designed to help users choose the **best place and time to buy products** based on price, delivery speed, and upcoming deals.
 
-The platform is designed to be simple, transparent, and trustworthy.
+Unlike basic comparison tools, this project focuses on **smart recommendations**, not just listing prices.
 
-# Project Objective
+---
 
-College students often:
-- compare prices manually across multiple websites
-- miss discounts or buy at the wrong time
-- struggle to balance delivery speed and price
+## 🎯 Project Objective
+
+College students often face confusion while shopping online due to:
+- different prices on different platforms
+- trade-off between cheaper price vs faster delivery
+- missing upcoming sales and deals
 
 Smart Buy Compare solves this by:
-- showing verified prices from multiple platforms in one place
-- highlighting upcoming deals so users can plan purchases
-- ranking products based on delivery preference (fast vs cheap)
-- redirecting users to official seller websites for secure purchase
+- comparing multiple platforms
+- ranking options based on user preference
+- highlighting the **best option**
+- showing upcoming deals so users can plan ahead
 
-# Key Features
+---
 
-- Multi-Store Price Comparison
+## ✨ Current Features (Implemented)
 
-    Compare the same product across different online platforms.
+- 🔍 **Product Search**
+  - Search student-use products (clothing, skincare, daily-use items)
 
-- Student-Focused Products
+- ⚖️ **Price Comparison**
+  - Compare prices across multiple platforms (e.g., Amazon, Flipkart)
 
-    Covers clothes, skincare, and daily-use items commonly used by students.
+- 🚚 **Delivery-Based Ranking**
+  - User can choose priority:
+    - **Fast Delivery**
+    - **Cheapest**
+    - **Balanced (price + delivery)**
 
-- Delivery-Based Smart Ranking
+- ⭐ **Best Option Highlight**
+  - Top-ranked offer is clearly marked as *Best Option*
 
-    Users can choose:
+- 🔔 **Upcoming Deals Information**
+  - Displays future deals with:
+    - deal name
+    - expected price
+    - platform
+    - start date
 
-    - Fast delivery (pay more)
-    - Balanced option
-    - Cheapest option (slower delivery)
+- 🔗 **Trusted Redirects**
+  - Clicking “Buy” redirects users to the official platform website
 
-- Verified Prices with Timestamps
+---
 
-    Every price includes a “last updated” time for transparency and trust.
+## 🧠 How the System Works
 
-- Upcoming Deals & Offer Planning
+1. User enters a product name and selects a priority.
+2. Frontend sends request to backend API.
+3. Backend:
+   - searches products from dataset
+   - ranks offers based on user preference
+4. Frontend:
+   - displays ranked results
+   - highlights the best option
+   - shows upcoming deal information
 
-    Displays upcoming sales so users can decide the best time to buy.
+---
 
-- Redirect to Official Sellers
+## 🛠️ Tech Stack
 
-    Users are redirected to platforms like Amazon or Flipkart to complete purchases safely.
+### Frontend
+- HTML
+- CSS
+- JavaScript (Vanilla)
 
-- Simple & Clean UI
+### Backend
+- Python
+- Flask (REST API)
 
-    Focused on usability, performance, and smooth user experience.
+### Data
+- Custom JSON dataset (student-focused products)
 
-# How the System Works
+---
 
-1. Product prices are collected from predefined datasets, scheduled scraping, or public APIs
 
-2. Data is stored in a database with timestamps
 
-3. Users search for a product on the website
+## 📁 Project Structure
 
-4. The system compares prices and ranks results based on user preference
+## Smart-Buy-Compare
+### Backend
+- app.py
 
-5. Users click a product and are redirected to the official seller website
+### Frontend
+- index.html
+- script.js
+- style.css
 
-    ⚠️ The platform does not sell products or control checkout prices.  
+### Data
+- seed_products.json
+
+### requirements.txt
+### README.md
