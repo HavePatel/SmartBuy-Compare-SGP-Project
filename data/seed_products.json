@@ -1,0 +1,70 @@
+{
+  "categories": [
+    {
+      "id": "clothing",
+      "name": "Clothing",
+      "products": [
+        {
+          "id": "tshirt_001",
+          "name": "Basic Cotton T-Shirt",
+          "brand": "CampusWear",
+          "offers": [
+            {
+              "platform": "Amazon",
+              "price": 499,
+              "delivery_days": 2,
+              "product_url": "https://www.amazon.in/example-tshirt",
+              "last_updated": "2026-01-20T10:00:00"
+            },
+            {
+              "platform": "Flipkart",
+              "price": 459,
+              "delivery_days": 5,
+              "product_url": "https://www.flipkart.com/example-tshirt",
+              "last_updated": "2026-01-20T09:30:00"
+            }
+          ],
+          "upcoming_deal": {
+            "platform": "Amazon",
+            "deal_name": "Republic Day Sale",
+            "expected_price": 399,
+            "starts_on": "2026-01-26"
+          }
+        }
+      ]
+    },
+    {
+      "id": "skincare",
+      "name": "Skincare",
+      "products": [
+        {
+          "id": "facewash_001",
+          "name": "Gentle Face Wash",
+          "brand": "DermaClean",
+          "offers": [
+            {
+              "platform": "Amazon",
+              "price": 299,
+              "delivery_days": 1,
+              "product_url": "https://www.amazon.in/example-facewash",
+              "last_updated": "2026-01-20T10:10:00"
+            },
+            {
+              "platform": "Flipkart",
+              "price": 279,
+              "delivery_days": 4,
+              "product_url": "https://www.flipkart.com/example-facewash",
+              "last_updated": "2026-01-20T09:50:00"
+            }
+          ],
+          "upcoming_deal": {
+            "platform": "Flipkart",
+            "deal_name": "Student Special",
+            "expected_price": 249,
+            "starts_on": "2026-01-24"
+          }
+        }
+      ]
+    }
+  ]
+}
