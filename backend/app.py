@@ -58,24 +58,27 @@ def get_products():
 # API: Search products + APPLY ranking
 # --------------------------------------------------
 
+def normalize_text(text):
+    return text.lower().replace(" ", "").replace("-", "")
+
 @app.route("/api/search", methods=["GET"])
 def search_products():
-    query = request.args.get("query", "").lower()
+    query = request.args.get("query", "")
     priority = request.args.get("priority", "balanced").lower()
 
     if not query:
         return jsonify({"results": []})
 
+    normalized_query = normalize_text(query)
+
     matched_products = []
 
     for category in product_data.get("categories", []):
         for product in category.get("products", []):
-            product_name = product.get("name", "").lower()
+            product_name = normalize_text(product.get("name", ""))
 
-            if query in product_name:
+            if normalized_query in product_name:
                 offers = product.get("offers", [])
-
-                # 🔥 APPLY RANKING HERE
                 ranked_offers = rank_offers(offers, priority)
 
                 matched_products.append({
@@ -93,6 +96,7 @@ def search_products():
         "count": len(matched_products),
         "results": matched_products
     })
+
 
 # --------------------------------------------------
 # Run the Flask app
