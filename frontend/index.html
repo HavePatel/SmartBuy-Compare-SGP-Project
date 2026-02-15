@@ -6,21 +6,31 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
+  <div class="container">
     <h1>Smart Buy Compare</h1>
 
-    <input type="text" id="searchInput" placeholder="Search product..." />
+    <!-- Categories -->
+    <div id="categories">
+      <button data-category="clothing" onclick="browseCategory('clothing', this)">Clothing</button>
+      <button data-category="skincare" onclick="browseCategory('skincare', this)">Skincare</button>
+      <button data-category="daily use" onclick="browseCategory('daily use', this)">Daily Use</button>
+    </div>
 
-    <select id="prioritySelect">
+    <!-- Search -->
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Search product..." />
+      <select id="prioritySelect">
         <option value="balanced">Balanced</option>
         <option value="fast">Fast Delivery</option>
         <option value="cheap">Cheapest</option>
-    </select>
-
-    <button onclick="searchProduct()">Search</button>
+      </select>
+      <button onclick="searchProduct()">Search</button>
+    </div>
 
     <div id="results"></div>
+  </div>
 
-    <script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
+
 </html>

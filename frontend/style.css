@@ -1,11 +1,21 @@
 body {
-    font-family: Arial, sans-serif;
-    padding: 20px;
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+}
+
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
 }
 
 input, select, button {
     padding: 8px;
     margin: 5px;
+}
+
+h1 {
+  margin-bottom: 20px;
 }
 
 li {
@@ -15,4 +25,60 @@ li {
 a {
     margin-left: 10px;
     color: blue;
+}
+
+/* Phase 2: Category browsing UI */
+
+#categories {
+  margin-bottom: 25px;
+}
+
+#categories button {
+  padding: 8px 12px;
+  margin-right: 8px;
+  cursor: pointer;
+}
+
+#categories button:hover {
+  background-color: #e6e6e6;
+}
+
+#categories button.active-category {
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
+#categories button.active-category:hover {
+  background-color: #0056b3;
+}
+
+.search-bar {
+  margin-bottom: 20px;
+}
+
+.search-bar input,
+.search-bar select,
+.search-bar button {
+  padding: 8px;
+  margin: 5px;
+}
+
+.product-section {
+  border-bottom: 1px solid #e0e0e0;
+  padding: 20px 0;
+}
+
+.product-card h3 {
+  margin-top: 0;
+}
+
+li {
+  list-style: none;
+  margin-bottom: 10px;
+}
+
+li {
+  list-style: none;
+  margin: 8px 0;
 }
