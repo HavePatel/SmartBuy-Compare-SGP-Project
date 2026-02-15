@@ -4,7 +4,64 @@
       "id": "clothing",
       "name": "Clothing",
       "products": [
+        
         {
+              "brand": "CampusWear",
+              "id": "jeans_001",
+              "name": "Slim Fit Denim Jeans",
+              "offers": [
+      {
+              "platform": "Amazon",
+              "price": 1599,
+              "delivery_days": 4,
+              "last_updated": "2026-01-20T12:00:00",
+              "product_url": "https://www.amazon.in/example-jeans"
+      },
+      {
+               "platform": "Flipkart",
+               "price": 1499,
+               "delivery_days": 6,
+               "last_updated": "2026-01-20T11:30:00",
+               "product_url": "https://www.flipkart.com/example-jeans"
+      }
+  ]
+}
+
+       ,{
+           "brand": "UrbanFit",
+           "id": "hoodie_001",
+           "name": "Casual Winter Hoodie",
+           "offers": [
+         {
+            "platform": "Amazon",
+            "price": 1299,
+            "delivery_days": 3,
+            "last_updated": "2026-01-20T11:00:00",
+            "product_url": "https://www.amazon.in/example-hoodie"
+         },
+         {
+             "platform": "Flipkart",
+             "price": 1199,
+             "delivery_days": 5,
+             "last_updated": "2026-01-20T10:30:00",
+             "product_url": "https://www.flipkart.com/example-hoodie"
+        },
+        {
+             "platform": "Myntra",
+             "price": 1249,
+             "delivery_days": 2,
+             "last_updated": "2026-01-20T09:45:00",
+             "product_url": "https://www.myntra.com/example-hoodie"
+        }
+        ],
+             "upcoming_deal": {
+             "deal_name": "Winter Clearance Sale",
+             "expected_price": 1099,
+             "platform": "Myntra",
+             "starts_on": "2026-02-01"
+  }
+      }
+        ,{
           "id": "tshirt_001",
           "name": "Basic Cotton T-Shirt",
           "brand": "CampusWear",
@@ -38,6 +95,63 @@
       "name": "Skincare",
       "products": [
         {
+  "brand": "GlowCare",
+  "id": "facecream_001",
+  "name": "Daily Moisturizing Face Cream",
+  "offers": [
+    {
+      "platform": "Amazon",
+      "price": 349,
+      "delivery_days": 2,
+      "last_updated": "2026-01-20T10:15:00",
+      "product_url": "https://www.amazon.in/example-facecream"
+    },
+    {
+      "platform": "Flipkart",
+      "price": 329,
+      "delivery_days": 4,
+      "last_updated": "2026-01-20T09:40:00",
+      "product_url": "https://www.flipkart.com/example-facecream"
+    },
+    {
+      "platform": "Nykaa",
+      "price": 359,
+      "delivery_days": 1,
+      "last_updated": "2026-01-20T08:55:00",
+      "product_url": "https://www.nykaa.com/example-facecream"
+    }
+  ]
+}
+,{
+           "brand": "SunShield",
+           "id": "sunscreen_001",
+           "name": "SPF 50+ Sunscreen Lotion",
+           "offers": [
+      {
+           "platform": "Amazon",
+           "price": 499,
+           "delivery_days": 3,
+           "last_updated": "2026-01-20T11:10:00",
+           "product_url": "https://www.amazon.in/example-sunscreen"
+      },
+      {
+          "platform": "Flipkart",
+          "price": 469,
+          "delivery_days": 5,
+          "last_updated": "2026-01-20T10:45:00",
+          "product_url": "https://www.flipkart.com/example-sunscreen"
+      }
+  ],
+          "upcoming_deal": {
+          "deal_name": "Summer Care Sale",
+          "expected_price": 429,
+          "platform": "Amazon",
+          "starts_on": "2026-02-10"
+  }
+}
+
+
+        ,{
           "id": "facewash_001",
           "name": "Gentle Face Wash",
           "brand": "DermaClean",
@@ -66,5 +180,61 @@
         }
       ]
     }
+    ,{
+      "id": "dailyuse",
+      "name": "Daily Use",
+      "products": [
+        {
+             "brand": "FreshRoots",
+             "id": "shampoo_001",
+             "name": "Herbal Anti-Dandruff Shampoo",
+             "offers": [
+      {
+             "platform": "Amazon",
+             "price": 299,
+             "delivery_days": 2,
+             "last_updated": "2026-01-20T12:00:00",
+             "product_url": "https://www.amazon.in/example-shampoo"
+      },
+      {
+             "platform": "Flipkart",
+             "price": 279,
+             "delivery_days": 4,
+             "last_updated": "2026-01-20T11:20:00",
+             "product_url": "https://www.flipkart.com/example-shampoo"
+      }
+  ]
+}
+,{
+        "brand": "PureCare",
+        "id": "soap_001",
+        "name": "Natural Aloe Vera Bath Soap",
+        "offers": [
+    {
+        "platform": "Amazon",
+        "price": 99,
+        "delivery_days": 1,
+        "last_updated": "2026-01-20T09:00:00",
+        "product_url": "https://www.amazon.in/example-soap"
+    },
+    {
+        "platform": "Flipkart",
+        "price": 89,
+        "delivery_days": 3,
+        "last_updated": "2026-01-20T08:30:00",
+        "product_url": "https://www.flipkart.com/example-soap"
+    },
+    {
+        "platform": "Reliance Smart",
+        "price": 95,
+        "delivery_days": 2,
+        "last_updated": "2026-01-20T08:00:00",
+        "product_url": "https://www.reliancedigital.in/example-soap"
+    }
+  ]
+}
+      ]
+}
+
   ]
 }

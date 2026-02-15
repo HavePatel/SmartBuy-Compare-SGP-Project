@@ -61,13 +61,23 @@ def get_products():
 def normalize_text(text):
     return text.lower().replace(" ", "").replace("-", "")
 
+def get_best_reason(best_offer, priority):
+    if priority == "cheapest":
+        return "Best because it is the lowest priced option"
+    elif priority == "fast":
+        return f"Best because it delivers fastest ({best_offer['delivery_days']} days)"
+    else:
+        return "Best balance of price and delivery time"
+
 @app.route("/api/search", methods=["GET"])
 def search_products():
     query = request.args.get("query", "")
     priority = request.args.get("priority", "balanced").lower()
+    category_filter = request.args.get("category", "").lower()
 
-    if not query:
-        return jsonify({"results": []})
+    if not query and not category_filter:
+      return jsonify({"results": []})
+
 
     normalized_query = normalize_text(query)
 
@@ -77,18 +87,27 @@ def search_products():
         for product in category.get("products", []):
             product_name = normalize_text(product.get("name", ""))
 
-            if normalized_query in product_name:
+            category_name = category.get("name", "").lower()
+
+            category_match = True
+            if category_filter:
+                category_match = category_filter == category_name
+
+            if normalized_query in product_name and category_match:
+
                 offers = product.get("offers", [])
                 ranked_offers = rank_offers(offers, priority)
+                best_reason = get_best_reason(ranked_offers[0], priority)
 
                 matched_products.append({
-                    "category": category.get("name"),
-                    "product_id": product.get("id"),
-                    "product_name": product.get("name"),
-                    "brand": product.get("brand"),
-                    "offers": ranked_offers,
-                    "upcoming_deal": product.get("upcoming_deal")
-                })
+    "category": category.get("name"),
+    "product_id": product.get("id"),
+    "product_name": product.get("name"),
+    "brand": product.get("brand"),
+    "offers": ranked_offers,
+    "best_reason": best_reason,
+    "upcoming_deal": product.get("upcoming_deal")
+})
 
     return jsonify({
         "query": query,
