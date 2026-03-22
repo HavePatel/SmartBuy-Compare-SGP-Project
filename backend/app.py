@@ -1,125 +1,87 @@
-from flask import Flask, jsonify, request
-import json
 import os
+import sys
 
+# Allow OAuth HTTP transport for local dev 
+os.environ["AUTHLIB_INSECURE_TRANSPORT"] = "1"
 
-
-app = Flask(__name__)
+from flask import Flask
 from flask_cors import CORS
-CORS(app)
 
-# --------------------------------------------------
-# Load product data from JSON file
-# --------------------------------------------------
+# When running `python backend/app.py`, Python's import path doesn't include
+# the repository root by default. This makes `import backend.*` work.
+REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if REPO_ROOT not in sys.path:
+    sys.path.insert(0, REPO_ROOT)
 
-DATA_FILE = os.path.join(os.path.dirname(__file__), "..", "data", "seed_products.json")
-
-with open(DATA_FILE, "r") as file:
-    product_data = json.load(file)
-
-# --------------------------------------------------
-# Helper function: Rank offers based on priority
-# --------------------------------------------------
-
-def rank_offers(offers, priority):
-    if priority == "fast":
-        # Faster delivery first
-        return sorted(offers, key=lambda x: (x["delivery_days"], x["price"]))
-
-    elif priority == "cheap":
-        # Cheaper price first
-        return sorted(offers, key=lambda x: (x["price"], x["delivery_days"]))
-
-    elif priority == "balanced":
-        # Balance price and delivery
-        price_sorted = sorted(offers, key=lambda x: x["price"])
-        delivery_sorted = sorted(offers, key=lambda x: x["delivery_days"])
-
-        ranked = []
-        for offer in offers:
-            price_rank = price_sorted.index(offer)
-            delivery_rank = delivery_sorted.index(offer)
-            ranked.append((price_rank + delivery_rank, offer))
-
-        ranked.sort(key=lambda x: x[0])
-        return [item[1] for item in ranked]
-
-    return offers
-
-# --------------------------------------------------
-# API: Get all products
-# --------------------------------------------------
-
-@app.route("/api/products", methods=["GET"])
-def get_products():
-    return jsonify(product_data)
-
-# --------------------------------------------------
-# API: Search products + APPLY ranking
-# --------------------------------------------------
-
-def normalize_text(text):
-    return text.lower().replace(" ", "").replace("-", "")
-
-def get_best_reason(best_offer, priority):
-    if priority == "cheapest":
-        return "Best because it is the lowest priced option"
-    elif priority == "fast":
-        return f"Best because it delivers fastest ({best_offer['delivery_days']} days)"
-    else:
-        return "Best balance of price and delivery time"
-
-@app.route("/api/search", methods=["GET"])
-def search_products():
-    query = request.args.get("query", "")
-    priority = request.args.get("priority", "balanced").lower()
-    category_filter = request.args.get("category", "").lower()
-
-    if not query and not category_filter:
-      return jsonify({"results": []})
+from backend.config import Config
+from backend.extensions import db, oauth
+from backend.routes.auth import bp as auth_bp
+from backend.routes.products import bp as products_bp
+from backend.routes.user import bp as user_bp
 
 
-    normalized_query = normalize_text(query)
+def create_app():
+    FRONTEND_FOLDER = os.path.join(REPO_ROOT, "frontend")
+    app = Flask(__name__, static_folder=FRONTEND_FOLDER, static_url_path="/")
+    app.config.from_object(Config)
 
-    matched_products = []
+    # Flask sessions rely on a secret key.
+    app.secret_key = app.config["SECRET_KEY"]
 
-    for category in product_data.get("categories", []):
-        for product in category.get("products", []):
-            product_name = normalize_text(product.get("name", ""))
+    # Ensure cross-origin requests don't drop the session cookie
+    app.config.update(
+        SESSION_COOKIE_SAMESITE="None",
+        SESSION_COOKIE_SECURE=True,
+    )
 
-            category_name = category.get("name", "").lower()
+    # Keep existing frontend requests working and allow cookie-based sessions.
+    # Allow common local frontend origins (including `file://` -> Origin: null)
+    # so cookie-based sessions work with `fetch(..., credentials: "include")`.
+    CORS(
+        app,
+        supports_credentials=True,
+        origins=[
+            "null",
+            r"http://127\.0\.0\.1:\d+",
+            r"http://localhost:\d+",
+        ],
+    )
 
-            category_match = True
-            if category_filter:
-                category_match = category_filter == category_name
+    # Initialize SQLAlchemy.
+    db.init_app(app)
 
-            if normalized_query in product_name and category_match:
+    # Initialize Authlib OAuth
+    oauth.init_app(app)
+    if app.config.get("GOOGLE_CLIENT_ID") and app.config.get("GOOGLE_CLIENT_SECRET"):
+        oauth.register(
+            name="google",
+            server_metadata_url="https://accounts.google.com/.well-known/openid-configuration",
+            client_kwargs={"scope": "openid email profile"},
+        )
 
-                offers = product.get("offers", [])
-                ranked_offers = rank_offers(offers, priority)
-                best_reason = get_best_reason(ranked_offers[0], priority)
+    # Register blueprints (keeps existing product/search APIs intact).
+    app.register_blueprint(products_bp)
+    app.register_blueprint(auth_bp)
+    app.register_blueprint(user_bp)
 
-                matched_products.append({
-    "category": category.get("name"),
-    "product_id": product.get("id"),
-    "product_name": product.get("name"),
-    "brand": product.get("brand"),
-    "offers": ranked_offers,
-    "best_reason": best_reason,
-    "upcoming_deal": product.get("upcoming_deal")
-})
+    # Import models so SQLAlchemy knows about them.
+    from backend import models  # noqa: F401
 
-    return jsonify({
-        "query": query,
-        "priority": priority,
-        "count": len(matched_products),
-        "results": matched_products
-    })
+    @app.route("/")
+    def serve_frontend_index():
+        return app.send_static_file("index.html")
+        
+    @app.route("/dashboard")
+    def serve_dashboard():
+        return app.send_static_file("dashboard.html")
 
+    with app.app_context():
+        # Step 1: prepare the auth DB schema (User table only).
+        db.create_all()
 
-# --------------------------------------------------
-# Run the Flask app
-# --------------------------------------------------
+    return app
+
+# (Product and search endpoints were moved into `backend/routes/products.py`.)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    create_app().run(debug=True)
