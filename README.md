@@ -1,100 +1,155 @@
-# 🛒 Smart Buy Compare
+## 🛒 Smart Buy Compare
 
-Smart Buy Compare is a **student-focused price comparison and decision-support web application** designed to help users choose the **best place and time to buy products** based on price, delivery speed, and upcoming deals.
 
-Unlike basic comparison tools, this project focuses on **smart recommendations**, not just listing prices.
+Smart Buy Compare is an intelligent price comparison and decision-support web application designed to help users choose when and where to buy products based on price, delivery speed, and upcoming deals.
 
----
+Unlike traditional comparison tools, this platform focuses on smart recommendations, tracking, and personalized insights.
 
 ## 🎯 Project Objective
 
-College students often face confusion while shopping online due to:
-- different prices on different platforms
-- trade-off between cheaper price vs faster delivery
-- missing upcoming sales and deals
+Online shopping often creates confusion due to:
 
+- Different prices across platforms
+- Trade-off between cheaper price vs faster delivery
+- Missing out on upcoming deals
+  
 Smart Buy Compare solves this by:
-- comparing multiple platforms
-- ranking options based on user preference
-- highlighting the **best option**
-- showing upcoming deals so users can plan ahead
+- Comparing multiple platforms
+- Ranking offers based on user preference
+- Providing buy-now vs wait recommendations
+- Tracking prices and notifying users
+  
+## ✨ Key Features
+### 🔍 Smart Product Search
+- Search across categories (clothing, skincare, daily use)
+- Clean and fast UI
+  
+### 💸 Intelligent Price Comparison
+- Compare offers across platforms
+- Prioritize:
+  * Cheapest
+  * Fast Delivery
+  * Balanced
+  
+### 🧠 Smart Recommendation Engine
+- Suggests:
+  * Buy Now 🛒
+  * Wait for Deal 🕒
+- Based on price trends and upcoming deals
 
----
+### 📊 Price Tracking & History
+- Track product prices over time
+- Visual price graphs
+- Detect price drops
 
-## ✨ Current Features (Implemented)
+### 🔔 Alerts & Notifications
+- Get notified when:
+  * Price drops
+  * Deals become available
+- Priority-based alerts
 
-- 🔍 **Product Search**
-  - Search student-use products (clothing, skincare, daily-use items)
+### 👤 User Authentication
+- Google OAuth login
+- Session-based authentication
+- Secure user management
 
-- ⚖️ **Price Comparison**
-  - Compare prices across multiple platforms (e.g., Amazon, Flipkart)
+### 📂 Personalized Dashboard
+- View:
+  * Saved products
+  * Active trackers
+  * Price alerts
+- Manage tracking and saved items
 
-- 🚚 **Delivery-Based Ranking**
-  - User can choose priority:
-    - **Fast Delivery**
-    - **Cheapest**
-    - **Balanced (price + delivery)**
+### 💾 Save & Track Products
+- Bookmark products
+- Start/stop tracking
+- Personalized experience
 
-- ⭐ **Best Option Highlight**
-  - Top-ranked offer is clearly marked as *Best Option*
+### 🎨 Modern UI/UX
+- Clean responsive design
+- Smooth interactions
+- Highlighted best options
+- (Upcoming: Dark mode, animations, skeleton loading)
 
-- 🔔 **Upcoming Deals Information**
-  - Displays future deals with:
-    - deal name
-    - expected price
-    - platform
-    - start date
-
-- 🔗 **Trusted Redirects**
-  - Clicking “Buy” redirects users to the official platform website
-
----
-
-## 🧠 How the System Works
-
-1. User enters a product name and selects a priority.
-2. Frontend sends request to backend API.
+## ⚙️ How the System Works
+1. User searches a product
+2. Frontend sends request to backend
 3. Backend:
-   - searches products from dataset
-   - ranks offers based on user preference
-4. Frontend:
-   - displays ranked results
-   - highlights the best option
-   - shows upcoming deal information
+  * Fetches products (DB / API / simulated updates)
+  * Ranks offers based on priority
+4. System:
+  * Suggests best option
+  * Provides tracking + alerts
+5. Frontend displays results dynamically
 
----
+## 🏗️ Tech Stack
 
-## 🛠️ Tech Stack
-
-### Frontend
+### 🖥️ Frontend
 - HTML
 - CSS
 - JavaScript (Vanilla)
 
-### Backend
+### ⚙️ Backend
 - Python
 - Flask (REST API)
+- Modular Architecture (routes, services, models)
 
-### Data
-- Custom JSON dataset (student-focused products)
+### 🗄️ Database
+- PostgreSQL (main)
+- SQLite (development)
 
----
+### 🔐 Authentication
+- Google OAuth
+- Session-based auth
 
-
-
+### 📊 Data Handling
+- Simulated real-time updates
+- Price tracking engine
+- (Upcoming: External API + scraping layer)
+  
 ## 📁 Project Structure
 
-## Smart-Buy-Compare
-### Backend
-- app.py
-
-### Frontend
-- index.html
-- script.js
-- style.css
-
-### Data
-- seed_products.json
-
-### requirements.txt
-### README.md
+```
+Smart-Buy-Compare/
+│
+├── backend/
+│   ├── app.py               
+│   ├── config.py            
+│   ├── extensions.py
+│   ├── models.py
+│   ├── price_engine.py     
+│   │
+│   ├── routes/
+│   │   ├── auth.py
+│   │   ├── user.py
+│   │   └── products.py
+│   │
+│   ├── services/
+│   │   ├── product_service.py
+│   │   ├── scraper_service.py
+│   │   └── recommendation_service.py
+│   │
+│   └── __init__.py
+│
+├── frontend/
+│   ├── index.html
+│   ├── dashboard.html
+│   ├── product.html
+│   ├── script.js
+│   ├── dashboard.js
+│   ├── product.js
+│   └── style.css
+│
+├── database/
+│   ├── seed_data.py
+│   └── (migrations/)
+│
+├── data/
+│   └── seed_products.json
+│
+├── smartbuy.db
+├── requirements.txt
+├── .env
+├── .gitignore
+└── README.md
+```
