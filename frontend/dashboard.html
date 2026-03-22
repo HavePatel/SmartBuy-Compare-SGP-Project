@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Smart Buy Compare</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .dashboard-panel {
+            background: var(--panel-bg);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: var(--card-shadow, 0 4px 6px rgba(0,0,0,0.1));
+            border: 1px solid var(--border-color);
+        }
+        .dashboard-panel h2 {
+            margin-top: 0;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+        .item-card {
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .item-card h3 {
+            margin: 0;
+            font-size: 1.1em;
+            color: var(--text-color);
+        }
+        .item-card p {
+            margin: 0;
+            color: #666;
+            font-size: 0.9em;
+        }
+        .action-btngrp {
+            margin-top: 10px;
+            display: flex;
+            gap: 10px;
+        }
+        .btn-danger {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9em;
+        }
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9em;
+            text-decoration: none;
+        }
+        .alert-card {
+            border-left: 4px solid #ffc107;
+        }
+        .alert-card.high-priority {
+            border-left-color: #dc3545;
+        }
+        .alert-card.unread {
+            background-color: #f8f9fa;
+        }
+        .empty-state {
+            color: #888;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+<header class="header" style="align-items: center; padding: 20px; max-width: 1200px; margin: 0 auto; border-bottom: 1px solid #eee;">
+    <div style="display: flex; align-items: center; gap: 15px;">
+        <a href="/" class="view-button" style="text-decoration: none; font-weight: bold; display: flex; align-items: center; gap: 6px; padding: 8px 12px; font-size: 14px; background: #f1f3f5; color: #333; border-radius: 6px;">
+            <span>← Back to Search</span>
+        </a>
+        <h1 style="margin: 0; font-size: 26px; display: flex; align-items: center; gap: 10px;">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="url(#dash-logo-gradient)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <defs>
+                    <linearGradient id="dash-logo-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#4c6ef5" />
+                        <stop offset="100%" stop-color="#7048e8" />
+                    </linearGradient>
+                </defs>
+                <circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+            </svg>
+            <span style="background: linear-gradient(135deg, #4c6ef5, #7048e8); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800; letter-spacing: -0.5px;">Smart Buy Compare</span>
+        </h1>
+    </div>
+    <div style="display: flex; align-items: center;">
+        <button class="view-button theme-toggle-btn" style="margin-right: 15px; border-radius: 50%; width: 40px; height: 40px; padding: 0; display: flex; align-items: center; justify-content: center; font-size: 1.2em;" title="Toggle Theme">🌙</button>
+        <div id="authArea" class="header-auth" style="align-items: center; gap: 15px;">
+            Loading...
+        </div>
+    </div>
+</header>
+
+<main class="dashboard-grid">
+    <!-- Panel 1: Saved Products -->
+    <div class="dashboard-panel">
+        <h2>🏷️ My Saved Products</h2>
+        <div id="savedList"><p class="empty-state">Loading...</p></div>
+    </div>
+
+    <!-- Panel 2: Tracked Products -->
+    <div class="dashboard-panel">
+        <h2>🎯 Active Trackers</h2>
+        <div id="trackedList"><p class="empty-state">Loading...</p></div>
+    </div>
+
+    <!-- Panel 3: Price Alerts -->
+    <div class="dashboard-panel">
+        <h2>🔔 Price Alerts</h2>
+        <div id="alertsList"><p class="empty-state">Loading...</p></div>
+    </div>
+</main>
+
+<script src="dashboard.js"></script>
+</body>
+</html>
